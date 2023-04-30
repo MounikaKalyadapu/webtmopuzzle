@@ -1,5 +1,6 @@
 <ng-container *ngIf="(readingList$ | async).length > 0; else empty">
-  <div class="reading-list-item" *ngFor="let b of readingList$ | async">
+  <div *ngFor="let b of readingList$ | async">
+    <div class="reading-list-item">
     <div>
       <img class="reading-list-item--cover" [src]="b.coverUrl" [alt]="b.title"/>
     </div>
@@ -19,6 +20,20 @@
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>
+  </div>
+  <div class="markAsRead" >
+    <button mat-flat-button (click)="markBookasRead(b)" class="markreadClass"
+    data-testing="finished-book"
+    [disabled]="b?.finished">{{b?.finished?'Finished':'Mark As Read'}}</button>
+    <div
+
+        *ngIf="b.finishedDate"
+        class="book-markAsFinished"
+      >
+        Completed on {{ b?.finishedDate }}
+      </div>
+
+  </div>
   </div>
 </ng-container>
 <ng-template #empty>
